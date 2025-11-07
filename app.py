@@ -1,15 +1,7 @@
-from flask import Flask
+import os
+from flask import Flask, jsonify   # giữ các import hiện có
+
 app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return "Ứng dụng chạy tốt — Nếu bạn thấy dòng này, bước 1 hoàn tất!"
-    
-if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000)
-from flask import jsonify
-
-@app.route('/health')
-def health():
-    return jsonify(status="ok"), 200
+# Lấy SECRET_KEY từ biến môi trường; KHÔNG hardcode secret
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret')
 
